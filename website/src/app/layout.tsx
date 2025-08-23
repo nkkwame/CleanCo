@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { AuthProvider, useAuth } from "./AuthContext";
+import { AuthProvider } from "./AuthContext";
+import Header from "./Header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,8 +26,32 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <AuthProvider>
           <Header />
           <main className="container mx-auto px-4 py-8 min-h-[70vh]">{children}</main>
-          <footer className="bg-gray-900 text-white text-center py-4 mt-8">
-            &copy; 2025 CleanCo. All rights reserved.
+          <footer className="bg-gray-900 text-white py-8 mt-8">
+            <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
+              <div className="mb-4 md:mb-0">
+                <div className="font-bold text-xl mb-2">CleanCo</div>
+                <div className="text-sm">&copy; 2025 CleanCo. All rights reserved.</div>
+              </div>
+              <div className="flex flex-col md:flex-row gap-6 items-center">
+                <div>
+                  <div className="font-semibold mb-2">Quick Links</div>
+                  <ul className="text-sm space-y-1">
+                    <li><a href="/" className="hover:underline">Home</a></li>
+                    <li><a href="/services" className="hover:underline">Services</a></li>
+                    <li><a href="/referrals" className="hover:underline">Referrals</a></li>
+                    <li><a href="/contact" className="hover:underline">Contact</a></li>
+                  </ul>
+                </div>
+                <div>
+                  <div className="font-semibold mb-2">Contact</div>
+                  <ul className="text-sm space-y-1">
+                    <li>Email: <a href="mailto:info@cleanco.com" className="hover:underline">info@cleanco.com</a></li>
+                    <li>Phone: <a href="tel:+1234567890" className="hover:underline">+1 234 567 890</a></li>
+                    <li>Address: 123 Clean St, Accra, Ghana</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </footer>
         </AuthProvider>
       </body>
@@ -34,28 +59,3 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   );
 }
 
-function Header() {
-  const { user, logout } = useAuth();
-  return (
-    <header className="bg-blue-900 text-white py-4">
-      <nav className="container mx-auto flex justify-between items-center px-4">
-        <div className="font-bold text-xl">CleanCo</div>
-        <ul className="flex gap-6 items-center">
-          <li><a href="/" className="hover:underline">Home</a></li>
-          <li><a href="/services" className="hover:underline">Services</a></li>
-          <li><a href="/contact" className="hover:underline">Contact</a></li>
-          <li><a href="/dashboard" className="hover:underline">Dashboard</a></li>
-          <li><a href="/referrals" className="hover:underline">Referrals</a></li>
-          <li><a href="/register" className="hover:underline">Register</a></li>
-          <li><a href="/login" className="hover:underline">Login</a></li>
-          {user && (
-            <>
-              <li className="ml-4 text-sm">Logged in as <span className="font-semibold">{user.email}</span></li>
-              <li><button onClick={logout} className="bg-white text-blue-900 px-3 py-1 rounded font-bold">Logout</button></li>
-            </>
-          )}
-        </ul>
-      </nav>
-    </header>
-  );
-}
