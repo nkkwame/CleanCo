@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { AuthProvider } from "./AuthContext";
 import Header from "./Header";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,6 +26,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-50 text-gray-900`}>
         <AuthProvider>
           <Header />
+          {/* Navigation */}
+          <nav className="flex items-center justify-between py-6 px-8 bg-white shadow-md">
+            <div className="flex items-center gap-8">
+              <Link href="/" className="font-bold text-2xl text-blue-900">CleanCo</Link>
+              <Link href="/services" className="text-blue-900 font-semibold hover:text-blue-700">Services</Link>
+              {/* Removed Contact Us and Referral links */}
+              {/* <Link href="/contact" className="text-blue-900 font-semibold hover:text-blue-700">Contact Us</Link> */}
+              {/* <Link href="/referral" className="text-blue-900 font-semibold hover:text-blue-700">Referral</Link> */}
+            </div>
+          </nav>
           <main className="container mx-auto px-4 py-8 min-h-[70vh]">{children}</main>
           <footer className="bg-gray-900 text-white py-8 mt-8">
             <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-8">
@@ -38,8 +49,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <ul className="text-sm space-y-1">
                     <li><a href="/" className="hover:underline">Home</a></li>
                     <li><a href="/services" className="hover:underline">Services</a></li>
-                    <li><a href="/referrals" className="hover:underline">Referrals</a></li>
-                    <li><a href="/contact" className="hover:underline">Contact</a></li>
                   </ul>
                 </div>
                 <div>
